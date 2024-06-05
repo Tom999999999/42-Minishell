@@ -43,13 +43,15 @@ typedef struct s_ast
     t_node_type type;
     char **args;
     char *filename;
+    char *heredoc;
     struct s_ast *left;
     struct s_ast *right;
 } t_ast;
 
 
 t_token *get_token(char *input);
-const char *token_type_to_string(t_token_type type);
+// const char *token_type_to_string(t_token_type type);
+void print_token(t_token *token);
 t_ast *parse(t_token **token);
 void print_ast(t_ast *node);
 void free_ast(t_ast *node);

@@ -1,6 +1,7 @@
 #include "test.h"
 
-const char *node_type_to_string(t_node_type type) {
+const char *node_type_to_string(t_node_type type)
+{
     switch (type) {
         case N_COMMAND:
             return "N_COMMAND";
@@ -23,12 +24,15 @@ const char *node_type_to_string(t_node_type type) {
     }
 }
 
-
-void print_ast_helper(t_ast *node, const char *prefix, const char *child_prefix)
+void print_ast_helper(t_ast *node, const char *prefix)
 {
     if (!node) return;
 
     printf("%sNode Type: %s\n", prefix, node_type_to_string(node->type));
+
+    if (node->filename) {
+        printf("%sFilename: %s\n", prefix, node->filename);
+    }
 
     if (node->args) {
         printf("%sArguments: ", prefix);
@@ -38,26 +42,26 @@ void print_ast_helper(t_ast *node, const char *prefix, const char *child_prefix)
         printf("\n");
     }
 
-    if (node->filename) {
-        printf("%sFilename: %s\n", prefix, node->filename);
-    }
-
     if (node->left) {
         printf("%sLeft:\n", prefix);
-        print_ast_helper(node->left, child_prefix, child_prefix);
+        print_ast_helper(node->left, strcat(strcat(strdup(prefix), "  "), "  "));
     }
 
     if (node->right) {
         printf("%sRight:\n", prefix);
-        print_ast_helper(node->right, child_prefix, child_prefix);
+        print_ast_helper(node->right, strcat(strcat(strdup(prefix), "  "), "  "));
     }
 }
 
-void print_ast(t_ast *node) {
-    print_ast_helper(node, "", "  ");
+void print_ast(t_ast *node)
+{
+    print_ast_helper(node, "");
+    printf("\n");
 }
 
-void free_ast(t_ast *node) {
+
+void free_ast(t_ast *node)
+{
     if (!node) return;
 
     if (node->type == N_COMMAND) {
@@ -109,4 +113,18 @@ const char *token_type_to_string(t_token_type type)
         return "T_AND	";
     else
         return "UNKNOWN";
+}
+
+void print_token(t_token *token)
+{
+    int i = 0;
+    t_token *head = token;
+
+    while (head)
+	{
+        printf("\n");
+        printf("token %d, type:%s		value: %s", i, token_type_to_string(head->type), head->value);
+        i++;
+        head = head->next;
+    }
 }
