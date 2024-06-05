@@ -87,36 +87,3 @@ t_token *get_token(char *input)
     }
     return (lst);
 }
-
-void free_tokens(t_token *token)
-{
-    t_token *tmp;
-    while (token)
-    {
-        tmp = token;
-        token = token->next;
-        free(tmp->value);
-        free(tmp);
-    }
-}
-const char *token_type_to_string(t_token_type type)
-{
-    if (type == T_IDENTIFIER)
-        return "T_IDENTIFIER";
-    else if (type == T_PIPE)
-        return "T_PIPE	";
-    else if (type == T_GREAT)
-        return "T_GREAT	";
-    else if (type == T_LESS)
-        return "T_LESS	";
-    else if (type == T_DGREAT)
-        return "T_DGREAT";
-    else if (type == T_DLESS)
-        return "T_DLESS		";
-    else if (type == T_OR)
-        return "T_OR	";
-    else if (type == T_AND)
-        return "T_AND	";
-    else
-        return "UNKNOWN";
-}
