@@ -53,12 +53,13 @@ t_ast *nud(t_token **token)
 			}
 			node->args = malloc(sizeof(char *) * (arg_count + 1));
 			curr_token = *token;
-			while(i < arg_count)
+			while (i < arg_count)
 			{
-				node->args[i] = curr_token->value;
+				node->args[i] = strdup(curr_token->value);
 				curr_token = curr_token->next;
 				i++;
 			}
+
 			node->args[arg_count] = NULL;
 			*token = curr_token;
 		}	
@@ -95,7 +96,7 @@ t_ast *led(t_ast *left, t_token **token)
 		{
 			if ((*token)->type == T_IDENTIFIER)
 			{
-				node->filename = (*token)->value;
+				node->filename = strdup((*token)->value);
 				(*token) = (*token)->next;
 			}
 			else

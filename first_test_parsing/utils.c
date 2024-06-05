@@ -24,7 +24,7 @@ const char *node_type_to_string(t_node_type type)
     }
 }
 
-void print_ast_helper(t_ast *node, const char *prefix)
+void print_ast_helper(t_ast *node, char *prefix)
 {
     if (!node) return;
 
@@ -64,23 +64,29 @@ void free_ast(t_ast *node)
 {
     if (!node) return;
 
-    if (node->type == N_COMMAND) {
-        if (node->args) {
-            for (int i = 0; node->args[i]; i++) {
+    if (node->type == N_COMMAND)
+    {
+        if (node->args)
+        {
+            for (int i = 0; node->args[i]; i++)
+            {
                 free(node->args[i]);
             }
             free(node->args);
         }
-    } else if (node->type == N_GREAT) {
-        if (node->filename) {
+    }
+    else if (node->type == N_GREAT || node->type == N_LESS)
+    {
+        if (node->filename)
             free(node->filename);
-        }
     }
 
     free_ast(node->left);
     free_ast(node->right);
     free(node);
 }
+
+
 
 void free_tokens(t_token *token)
 {
@@ -90,9 +96,11 @@ void free_tokens(t_token *token)
         tmp = token;
         token = token->next;
         free(tmp->value);
-        free(tmp);
+        tmp->value = NULL;
+        free(tmp); // Free the token after its value
     }
 }
+
 const char *token_type_to_string(t_token_type type)
 {
     if (type == T_IDENTIFIER)
