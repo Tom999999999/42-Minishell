@@ -119,13 +119,17 @@ const char *token_type_to_string(t_token_type type)
         return "T_OR	";
     else if (type == T_AND)
         return "T_AND	";
+    else if (type == T_OPAR)
+        return "T_OPAR	";
+    else if (type == T_CPAR)
+        return "T_CPAR	";
     else
         return "UNKNOWN";
 }
 
 void print_token(t_token *token)
 {
-    int i = 0;
+    int i = 1;
     t_token *head = token;
 
     while (head)

@@ -28,6 +28,8 @@ int get_precedence(t_token_type type)
 		return(2);
 	if	(type == T_AND || type == T_OR)
 		return (3);
+	if (type == T_OPAR || type == T_CPAR)
+        return (4);
 	printf("error precedence");
 	return (-1);
 }
@@ -59,10 +61,21 @@ t_ast *nud(t_token **token)
 				curr_token = curr_token->next;
 				i++;
 			}
-
 			node->args[arg_count] = NULL;
 			*token = curr_token;
-		}	
+		}
+		else if ((*token)->type == T_OPAR)
+		{
+			(*token) = (*token)->next;
+			node = expr(3, token);
+			if ((*token) && (*token)->type == T_CPAR)
+				(*token) = (*token)->next;
+			else
+			{
+				printf("parenthesis do not close\n");
+				exit(1);
+			}
+		}
 	}
 	return (node);
 }
@@ -116,6 +129,8 @@ t_ast *expr(int prec, t_token **token)
 	t_ast *left = nud(token);
 	while (*token && get_precedence((*token)->type) <= prec)
 	{
+		if ((*token)->type == T_CPAR)
+			break;
 		left = led(left, token);
 	}
 	return (left);

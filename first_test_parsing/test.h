@@ -15,7 +15,9 @@ typedef enum s_token_type
     T_DLESS,
     T_DGREAT,
     T_AND,
-    T_OR
+    T_OR,
+    T_OPAR,
+    T_CPAR
 } t_token_type;
 
 typedef enum s_node_type

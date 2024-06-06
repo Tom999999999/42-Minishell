@@ -34,7 +34,11 @@ int add_token(t_token **lst, t_token_type type, char *input, int i)
     char *value;
 
     int count = i;
-    if (input[i] == '\'' || input[i] == '\"')
+    if (type == T_OPAR || type == T_CPAR)
+    {
+        count++;
+    }
+    else if (input[i] == '\'' || input[i] == '\"')
     {
 		count++;
         while (input[count] && input[count] != '\'' && input[count] != '\"')
@@ -82,8 +86,13 @@ t_token *get_token(char *input)
             i = add_token(&lst, T_OR, input, i);
         else if (input[i] == '&' && input[i + 1] == '&')
             i = add_token(&lst, T_AND, input, i);
+        else if (input[i] == '(')
+            i = add_token(&lst, T_OPAR, input, i);
+        else if (input[i] == ')')
+            i = add_token(&lst, T_CPAR, input, i);
         else if (input[i])
             i = add_token(&lst, T_IDENTIFIER, input, i);
+        
     }
     return (lst);
 }

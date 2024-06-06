@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-    char input[] = "cat test.txt | grep \"baum hallo\" > output.txt";
+    char input[] = "(echo \"Hello\" && (mkdir test || echo \"mkdir failed\")) || echo \"Outer failure\"";
     // char *input = argv[1];
     
     t_token *token = get_token(input);
