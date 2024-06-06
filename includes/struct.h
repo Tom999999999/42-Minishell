@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 16:52:33 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/03 17:26:50 by dolifero         ###   ########.fr       */
+/*   Created: 2024/06/05 15:08:37 by dolifero          #+#    #+#             */
+/*   Updated: 2024/06/05 15:09:38 by dolifero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef STRUCT_H
+# define STRUCT_H
 
-void	leaks(void)
+# include "minishell.h"
+
+typedef struct s_input
 {
-	system("leaks minishell");
-}
+	char	*command;
+	char	*arguments;
+}				t_input;
 
-int	main(void)
-{
-	char	*input;
-
-	atexit(leaks);
-	while (1)
-	{
-		input = readline("\033[1;36mminishell > \033[0;39m");
-		if (ft_strstr(input, "exit"))
-		{
-			free(input);
-			exit (0);
-		}
-	}
-}
+#endif

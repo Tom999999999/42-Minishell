@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+         #
+#    By: tecker <tecker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 17:09:19 by dolifero          #+#    #+#              #
-#    Updated: 2024/06/03 18:26:07 by dolifero         ###   ########.fr        #
+#    Updated: 2024/06/06 17:28:53 by tecker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,13 @@
 
 NAME			= minishell
 
-SRCS			=	parsing.c
+SRCS			=	prompt.c\
+					execution/if_nest.c\
+					execution/change_dir.c\
+					minishell.c\
+					first_test_parsing/utils.c\
+					first_test_parsing/parsing.c\
+					first_test_parsing/token.c
 
 OBJS			= $(SRCS:.c=.o)
 

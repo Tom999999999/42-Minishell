@@ -1,4 +1,4 @@
-#include "test.h"
+#include "../includes/minishell.h"
 
 const char *node_type_to_string(t_node_type type)
 {

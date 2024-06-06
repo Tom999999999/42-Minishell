@@ -1,4 +1,4 @@
-#include "test.h"
+#include "../includes/minishell.h"
 
 t_token *ft_new_token(char *value, t_token_type type)
 {

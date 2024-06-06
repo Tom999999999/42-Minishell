@@ -1,9 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "minishell.h"
 #include <ctype.h>
 
 typedef enum s_token_type
@@ -52,7 +50,6 @@ typedef struct s_ast
 
 
 t_token *get_token(char *input);
-// const char *token_type_to_string(t_token_type type);
 void print_token(t_token *token);
 t_ast *parse(t_token **token);
 void print_ast(t_ast *node);
