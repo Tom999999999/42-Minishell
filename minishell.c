@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:54:07 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/06 17:33:02 by tecker           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:05:17 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ int main(void)
 		print_token(tmp);
 		printf("\n\n");
 		print_ast(ast);
+		ft_execute(ast);
+
 
 		free_tokens(tmp2);
 		free_ast(ast);
 
-		ft_execute(input);
 		free(prompt);
+		free(input);
 	}
 }

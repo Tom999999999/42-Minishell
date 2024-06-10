@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:31:38 by dolifero          #+#    #+#             */
-/*   Updated: 2024/03/13 20:52:59 by dolifero         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:15:25 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,10 @@ char	*ft_itoa(int n)
 {
 	int		i;
 	char	*string;
-	int		container;
 	int		sign;
 
 	i = count_digits(n);
 	sign = 0;
-	container = n;
 	if (n < 0)
 		sign = 1;
 	n = ft_sign(n);

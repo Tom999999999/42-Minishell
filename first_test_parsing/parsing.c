@@ -81,17 +81,22 @@ t_ast *nud(t_token **token)
 
 void create_note(t_token_type type, t_ast **node)
 {
-	if (type == T_PIPE)
-		*node = create_ast_node(N_PIPE);
-	else if (type == T_GREAT)
-		*node = create_ast_node(N_GREAT);
-	else if (type == T_LESS)
-		*node = create_ast_node(N_LESS);
-	else if (type == T_AND)
-		*node = create_ast_node(N_AND);
-	else if (type == T_OR)
-		*node = create_ast_node(N_OR);
+    if (type == T_PIPE)
+        *node = create_ast_node(N_PIPE);
+    else if (type == T_GREAT)
+        *node = create_ast_node(N_GREAT);
+    else if (type == T_DGREAT)
+        *node = create_ast_node(N_DGREAT);
+    else if (type == T_LESS)
+        *node = create_ast_node(N_LESS);
+    else if (type == T_DLESS)
+        *node = create_ast_node(N_DLESS);
+    else if (type == T_AND)
+        *node = create_ast_node(N_AND);
+    else if (type == T_OR)
+        *node = create_ast_node(N_OR);
 }
+
 
 t_ast *led(t_ast *left, t_token **token)
 {
@@ -104,7 +109,20 @@ t_ast *led(t_ast *left, t_token **token)
 		node->left = left;
 		*token = (*token)->next;
 
-		if(prec == 2)
+		if ((*token)->prev && (*token)->prev->type == T_DLESS)
+		{
+			if ((*token)->type == T_IDENTIFIER)
+			{
+				node->heredoc = strdup((*token)->value);
+				(*token) = (*token)->next;
+			}
+			else
+			{
+				printf("missing heredoc delimiter after << operator");
+				exit(1);
+			}
+		}
+		else if(prec == 2)
 		{
 			if ((*token)->type == T_IDENTIFIER)
 			{
@@ -116,6 +134,7 @@ t_ast *led(t_ast *left, t_token **token)
 				printf("missing file after redirection operator");
 				exit(1);
 			}
+			
 		}
 		else
             node->right = expr(prec, token);

@@ -114,7 +114,7 @@ const char *token_type_to_string(t_token_type type)
     else if (type == T_DGREAT)
         return "T_DGREAT";
     else if (type == T_DLESS)
-        return "T_DLESS		";
+        return "T_DLESS	";
     else if (type == T_OR)
         return "T_OR	";
     else if (type == T_AND)

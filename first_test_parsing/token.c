@@ -33,36 +33,38 @@ int add_token(t_token **lst, t_token_type type, char *input, int i)
     t_token *new;
     char *value;
 
-    int count = i;
+    int count = 0;
+    int j = i;
     if (type == T_OPAR || type == T_CPAR)
     {
         count++;
     }
-    else if (input[i] == '\'' || input[i] == '\"')
+    else if (input[i + count] == '\'' || input[i + count] == '\"')
     {
-		count++;
-        while (input[count] && input[count] != '\'' && input[count] != '\"')
+        i++;
+        while (input[count + i] && input[count + i] != '\'' && input[count + i] != '\"')
             count++;
-		count++;
+        j += 2;
     }
     else
     {
-        while (input[count] && !isspace(input[count]))
+        while (input[count + j] && !isspace(input[count + j]) && input[j + count] != ')')
             count++;
     }
-    value = (char *)calloc((count - i) + 1, sizeof(char));
+    value = (char *)calloc(count + 1, sizeof(char));
     if (!value)
         exit(1);
 
-    strncpy(value, input + i, count - i);
-    value[count - i] = '\0';
+    strncpy(value, input + i, count);
+    value[count] = '\0';
 
     new = ft_new_token(value, type);
     ft_token_list_add_back(lst, new);
 
     free(value);
-    return (count);
+    return (count + j);
 }
+
 
 t_token *get_token(char *input)
 {
