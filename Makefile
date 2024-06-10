@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+         #
+#    By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 17:09:19 by dolifero          #+#    #+#              #
-#    Updated: 2024/06/10 18:32:34 by dolifero         ###   ########.fr        #
+#    Updated: 2024/06/10 23:17:16 by tomecker         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= cc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
+# CFLAGS			= -Wall -Wextra -Werror
 LDFLAGS			= -lreadline
 
 LIBFT_DIR 		= Libft

@@ -24,7 +24,7 @@ const char	*node_type_to_string(t_node_type type)
 		return ("UNKNOWN");
 	}
 }
-
+#include <string.h>
 void	print_ast_helper(t_ast *node, char *prefix)
 {
 	if (!node)

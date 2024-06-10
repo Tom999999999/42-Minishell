@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:59:59 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 18:44:44 by dolifero         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:33:34 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_execute_builtin(t_shell *ms, int builtin)
+void	ft_execute_builtin(t_ast *ast, int builtin)
 {
-	if (builtin == EXIT)
-		ft_exit(ms);
-	else if (builtin == CD)
-		ch_dir(ms->ast->args[1]);
+	// if (builtin == EXIT)
+	// 	ft_exit(ms);
+	if (builtin == CD)
+		ch_dir(ast->args[1]);
 	else if (builtin == PWD)
 		ft_pwd();
 	else if (builtin == ECHO)
-		ft_echo(ms->ast->args);
+		ft_echo(ast->args);
 	// else if (strcmp(arguments[0], "exit") == 0)
 	// else if (strcmp(arguments[0], "exit") == 0)
 	// else if (strcmp(arguments[0], "exit") == 0)

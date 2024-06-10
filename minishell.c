@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:54:07 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 17:23:13 by dolifero         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:20:34 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 	t_token	*tmp;
 	t_token	*tmp2;
 
-	atexit(leaks);
+	// atexit(leaks);
 	while (1)
 	{
 		ms.prompt = get_prompt();
@@ -37,8 +37,8 @@ int	main(void)
 		print_token(tmp);
 		printf("\n\n");
 		print_ast(ms.ast);
-		evaluate_ast(&ms);
+		evaluate_ast(ms.ast);
 		free_tokens(tmp2);
-		free_ms(&ms);
+		// free_ms(&ms);
 	}
 }
