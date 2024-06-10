@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 16:54:47 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/06 18:22:50 by dolifero         ###   ########.fr       */
+/*   Created: 2024/06/06 18:53:39 by dolifero          #+#    #+#             */
+/*   Updated: 2024/06/06 19:03:11 by dolifero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-//EXTERNAL INCLUDES
-
-# include <stdlib.h>
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <ctype.h>
-
-//INTERNAL INCLUDES
-
-# include "../Libft/libft.h"
-# include "enumtypes.h"
-# include "structs.h"
-# include "functions.h"
-
-#endif
+void	ft_echo(char **arguments)
+{
+	if (strcmp(arguments[1], "-n") == 0)
+		ft_printf("%s", arguments[2]);
+	else
+		ft_printf("%s\n", arguments[1]);
+}

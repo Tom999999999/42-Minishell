@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 16:54:47 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/06 18:22:50 by dolifero         ###   ########.fr       */
+/*   Created: 2024/06/06 18:09:27 by dolifero          #+#    #+#             */
+/*   Updated: 2024/06/10 18:47:44 by dolifero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-//EXTERNAL INCLUDES
+void	command_nest(t_shell *ms)
+{
+	int	builtin;
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <ctype.h>
+	builtin = command_is_builtin(ms->ast->args);
+	if (builtin)
+		ft_execute_builtin(ms, builtin);
+	else
+		ft_printf("I didn't make it yet\n");
+}
 
-//INTERNAL INCLUDES
-
-# include "../Libft/libft.h"
-# include "enumtypes.h"
-# include "structs.h"
-# include "functions.h"
-
-#endif
+void	evaluate_ast(t_shell *ms)
+{
+	if (ms->ast->type == N_COMMAND)
+		command_nest(ms);
+}
