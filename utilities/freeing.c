@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   freeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:08:26 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 17:13:18 by dolifero         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:22:37 by tecker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_ms(t_shell *ms)
+void	free_ms(t_ast *ast)
 {
-	free_ast(ms->ast);
-	free(ms->input);
-	free(ms->prompt);
+	free(ast->ms.input);
+	free(ast->ms.prompt);
+	free_tokens(ast->ms.token);
+	// free_ast(ast);
 }

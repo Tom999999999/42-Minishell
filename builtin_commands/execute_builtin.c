@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:59:59 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 20:33:34 by tomecker         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:55:54 by tecker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_execute_builtin(t_ast *ast, int builtin)
 {
-	// if (builtin == EXIT)
-	// 	ft_exit(ms);
+	if (builtin == EXIT)
+		ft_exit(ast);
 	if (builtin == CD)
 		ch_dir(ast->args[1]);
 	else if (builtin == PWD)

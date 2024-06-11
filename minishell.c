@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:54:07 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 23:20:34 by tomecker         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:27:57 by tecker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,29 @@ void	leaks(void)
 
 int	main(void)
 {
-	t_shell	ms;
+	t_ast	*ast;
 	t_token	*token;
 	t_token	*tmp;
-	t_token	*tmp2;
+	char *input;
+	char *prompt;
 
 	// atexit(leaks);
 	while (1)
 	{
-		ms.prompt = get_prompt();
-		ms.input = readline(ms.prompt);
-		add_history(ms.input);
-		token = get_token(ms.input);
+		prompt = get_prompt();
+		input = readline(prompt);
+		add_history(input);
+		token = get_token(input);
 		tmp = token;
-		tmp2 = token;
-		ms.ast = parse(&token);
-		print_token(tmp);
+		ast = parse(&token);
+		ast->ms.token = tmp;
+		ast->ms.input = input;
+		ast->ms.prompt = prompt;
+		print_token(tmp); 
 		printf("\n\n");
-		print_ast(ms.ast);
-		evaluate_ast(ms.ast);
-		free_tokens(tmp2);
-		// free_ms(&ms);
+		print_ast(ast);
+		evaluate_ast(ast);
+		write(1, "aaaa\n", 5);
+		free_ms(ast);
 	}
 }

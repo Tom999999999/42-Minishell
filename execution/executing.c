@@ -3,25 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:09:27 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/11 00:50:13 by tomecker         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:09:49 by tecker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	command_nest(t_ast *ast)
+void	command_execute(t_ast *ast)
 {
 	int	builtin;
+	int pid;
 
 	builtin = command_is_builtin(ast->args);
 	if (builtin)
 		ft_execute_builtin(ast, builtin);
 	else
-		execvp(ast->args[0], ast->args);
+	{
+		pid = fork();
+		if (pid == 0)
+			execvp(ast->args[0], ast->args);
+		else
+			waitpid(pid, NULL, 0);
 		// ft_printf("I didn't make it yet\n");
+	}
 }
 
 void redirect(t_ast *ast)
@@ -133,5 +140,5 @@ void	evaluate_ast(t_ast *ast)
 	if (ast->type == N_AND || ast->type == N_OR)
 		and_or_execution(ast);
 	if (ast->type == N_COMMAND)
-		command_nest(ast);
+		command_execute(ast);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:08:37 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 17:12:22 by dolifero         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:05:55 by tecker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ typedef struct s_token
 	struct s_token	*prev;
 }					t_token;
 
+
+typedef struct s_shell
+{
+	char			*input;
+	char			*prompt;
+	t_token			*token;
+}					t_shell;
+
 typedef struct s_ast
 {
 	t_node_type		type;
@@ -31,13 +39,7 @@ typedef struct s_ast
 	char			*heredoc;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	struct s_shell 	ms;
 }					t_ast;
-
-typedef struct s_shell
-{
-	char			*input;
-	char			*prompt;
-	t_ast			*ast;
-}					t_shell;
 
 #endif

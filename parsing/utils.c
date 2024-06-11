@@ -98,7 +98,7 @@ void	free_tokens(t_token *token)
 		token = token->next;
 		free(tmp->value);
 		tmp->value = NULL;
-		free(tmp); // Free the token after its value
+		free(tmp);
 	}
 }
 
