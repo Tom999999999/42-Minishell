@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 const char	*node_type_to_string(t_node_type type)
 {
@@ -63,45 +63,6 @@ void	print_ast(t_ast *node)
 	printf("\n");
 }
 
-void	free_ast(t_ast *node)
-{
-	if (!node)
-		return ;
-	if (node->type == N_COMMAND)
-	{
-		if (node->args)
-		{
-			for (int i = 0; node->args[i]; i++)
-			{
-				free(node->args[i]);
-			}
-			free(node->args);
-		}
-	}
-	else if (node->type == N_GREAT || node->type == N_LESS)
-	{
-		if (node->filename)
-			free(node->filename);
-	}
-	free_ast(node->left);
-	free_ast(node->right);
-	free(node);
-}
-
-void	free_tokens(t_token *token)
-{
-	t_token	*tmp;
-
-	while (token)
-	{
-		tmp = token;
-		token = token->next;
-		free(tmp->value);
-		tmp->value = NULL;
-		free(tmp);
-	}
-}
-
 const char	*token_type_to_string(t_token_type type)
 {
 	if (type == T_IDENTIFIER)
@@ -141,4 +102,59 @@ void	print_token(t_token *token)
 		i++;
 		head = head->next;
 	}
+}
+
+void	free_ast(t_ast *node)
+{
+	if (!node)
+		return ;
+	if (node->type == N_COMMAND)
+	{
+		if (node->args)
+		{
+			for (int i = 0; node->args[i]; i++)
+			{
+				free(node->args[i]);
+			}
+			free(node->args);
+		}
+	}
+	else if (node->type == N_GREAT || node->type == N_LESS)
+	{
+		if (node->filename)
+			free(node->filename);
+	}
+	free_ast(node->left);
+	free_ast(node->right);
+	free(node);
+}
+
+void	free_tokens(t_token *token)
+{
+	t_token	*tmp;
+
+	while (token)
+	{
+		tmp = token;
+		token = token->next;
+		free(tmp->value);
+		tmp->value = NULL;
+		free(tmp);
+	}
+}
+
+int error_indicator(int i)
+{
+	static int b = 0;
+	if (i == 1)
+		b++;
+	if (i == 3)
+		b = 0;
+	return (b);
+}
+
+int ft_isspace(int c)
+{
+    return (c == ' ' || c == '\f' || c == '\n'
+		|| c == '\r' || c == '\t' || c == '\v');
 }

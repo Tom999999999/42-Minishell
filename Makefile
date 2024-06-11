@@ -6,54 +6,44 @@
 #    By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 17:09:19 by dolifero          #+#    #+#              #
-#    Updated: 2024/06/10 23:17:16 by tomecker         ###   ########.fr        #
+#    Updated: 2024/06/11 18:12:25 by tomecker         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/29 18:40:32 by dolifero          #+#    #+#              #
-#    Updated: 2024/05/10 16:56:03 by dolifero         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-vpath %.c builtin_commands
-vpath %.c environment
-vpath %.c execution
-vpath %.c parsing
-vpath %.c prompts
-vpath %.c utilities
 
 NAME			= minishell
 
-SRCS			=	prompt.c\
-					utils.c\
-					parsing.c\
-					token.c\
-					executing.c\
-					if_builtin.c\
-					execute_builtin.c\
-					change_dir.c\
-					echo.c\
-					pwd.c\
-					exit.c\
-					freeing.c\
-					minishell.c
-
-OBJS			= $(SRCS:.c=.o)
-
 CC				= cc
-RM				= rm -f
-# CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror
 LDFLAGS			= -lreadline
 
 LIBFT_DIR 		= Libft
 LIBFT			= $(LIBFT_DIR)/libft.a
+
+SRC_DIR     = ./src
+OBJ_DIR     = ./obj
+
+SUBDIRS     = parsing execution builtin_commands prompts utilities
+SRC_FILES   = $(SRC_DIR)/main.c $(foreach dir, $(SUBDIRS), $(wildcard $(SRC_DIR)/$(dir)/*.c))
+
+OBJ_FILES   = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
+
+NAME        = minishell
+
+all: $(NAME)
+
+$(NAME): $(OBJ_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR) $(foreach dir, $(SUBDIRS), $(OBJ_DIR)/$(dir))
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 
 BOLD_PURPLE	=	\033[1;35m
 BOLD_CYAN	=	\033[1;36m
@@ -80,23 +70,18 @@ all:			$(NAME)
 				@$(MAKE) SHELL_GREEN
 				@echo "             $(BOLD_GREEN)${NAME} DONE!\n$(DEF_COLOR)"
 
-$(NAME):		$(OBJS) $(LIBFT)
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS) -L $(LIBFT_DIR) -lft
-
-$(LIBFT):
-				@$(MAKE) -C $(LIBFT_DIR)
-
-%.o: %.c
-				@$(CC) $(CFLAGS) -c $< -o $@
-
 clean:
 				@echo "$(CYAN)"
-				$(RM) $(OBJS) $(LIBFT_DIR)/*.o
+				rm -rf $(OBJ_DIR)
+				make clean -C $(LIBFT_DIR)
+				clear;
 				@echo "$(DEF_COLOR)"
 
-fclean:
+fclean:	clean
 				@echo "$(CYAN)"
-				$(RM) $(OBJS) $(NAME) $(LIBFT_DIR)/*.o $(LIBFT)
+				rm -f $(NAME)
+				make fclean -C $(LIBFT_DIR)
+				clear;
 				@echo "$(DEF_COLOR)"
 
 re:				fclean all

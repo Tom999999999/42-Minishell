@@ -6,7 +6,7 @@
 /*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:54:47 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 23:16:27 by tomecker         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:45:25 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <errno.h>
+# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <ctype.h>

@@ -1,13 +1,15 @@
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_token *ft_new_token(char *value, t_token_type type)
 {
     t_token *new_token;
 
-    new_token = (t_token *)calloc(1, sizeof(t_token));
+    new_token = (t_token *)ft_calloc(1, sizeof(t_token));
     if (!new_token)
-        return (NULL);
-    new_token->value = strdup(value);
+        error_indicator(1);
+    new_token->value = ft_strdup(value);
+    if (!new_token->value)
+        error_indicator(1);
     new_token->type = type;
     return (new_token);
 }
@@ -32,13 +34,13 @@ int add_token(t_token **lst, t_token_type type, char *input, int i)
 {
     t_token *new;
     char *value;
-
-    int count = 0;
-    int j = i;
+    int count;
+    int j;
+    
+    j = i;
+    count = 0;
     if (type == T_OPAR || type == T_CPAR)
-    {
         count++;
-    }
     else if (input[i + count] == '\'' || input[i + count] == '\"')
     {
         i++;
@@ -48,15 +50,12 @@ int add_token(t_token **lst, t_token_type type, char *input, int i)
     }
     else
     {
-        while (input[count + j] && !isspace(input[count + j]) && input[j + count] != ')')
+        while (input[count + j] && !ft_isspace(input[count + j]) && input[j + count] != ')')
             count++;
     }
-    value = (char *)calloc(count + 1, sizeof(char));
+    value = ft_substr(input, i, count);
     if (!value)
-        exit(1);
-
-    strncpy(value, input + i, count);
-    value[count] = '\0';
+        error_indicator(1);
 
     new = ft_new_token(value, type);
     ft_token_list_add_back(lst, new);
@@ -66,13 +65,16 @@ int add_token(t_token **lst, t_token_type type, char *input, int i)
 }
 
 
-t_token *get_token(char *input)
+t_token *get_token(char *input, char *prompt)
 {
-    t_token *lst = NULL;
-    int i = 0;
+    t_token *lst;
+    int i;
+
+    i = 0;
+    lst = NULL;
     while (input[i])
     {
-        while (isspace(input[i]))
+        while (ft_isspace(input[i]))
             i++;
         if (input[i] == '|' && input[i + 1] != '|')
             i = add_token(&lst, T_PIPE, input, i);
@@ -94,7 +96,13 @@ t_token *get_token(char *input)
             i = add_token(&lst, T_CPAR, input, i);
         else if (input[i])
             i = add_token(&lst, T_IDENTIFIER, input, i);
-        
+    }
+    if (error_indicator(0) > 0)
+    {
+        free(prompt);
+        free(input);
+        free_tokens(lst);
+        exit(1);
     }
     return (lst);
 }

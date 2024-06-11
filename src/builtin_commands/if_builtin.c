@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dolifero <dolifero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:10:37 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/10 18:40:55 by dolifero         ###   ########.fr       */
+/*   Updated: 2024/06/11 21:29:18 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	command_is_builtin(char **args)
 {

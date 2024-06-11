@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:54:07 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/11 13:27:57 by tecker           ###   ########.fr       */
+/*   Updated: 2024/06/11 22:26:25 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	leaks(void)
 {
@@ -31,17 +31,13 @@ int	main(void)
 		prompt = get_prompt();
 		input = readline(prompt);
 		add_history(input);
-		token = get_token(input);
+		token = get_token(input, prompt);
 		tmp = token;
-		ast = parse(&token);
-		ast->ms.token = tmp;
-		ast->ms.input = input;
-		ast->ms.prompt = prompt;
+		ast = parse(&token, input, prompt);
 		print_token(tmp); 
 		printf("\n\n");
 		print_ast(ast);
 		evaluate_ast(ast);
-		write(1, "aaaa\n", 5);
-		free_ms(ast);
+		free_all(ast);
 	}
 }

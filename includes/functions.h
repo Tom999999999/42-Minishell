@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tecker <tecker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:55:24 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/11 12:57:51 by tecker           ###   ########.fr       */
+/*   Updated: 2024/06/11 22:28:02 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 char			*get_prompt(void);
 char			*trim_dir_path(char *dir_path);
 //TOKENISING
-t_token			*get_token(char *input);
+t_token			*get_token(char *input, char *prompt);
 void			print_token(t_token *token);
 void			free_tokens(t_token *token);
+int				ft_isspace(int c);
+
 //PARSING
-t_ast			*parse(t_token **token);
+t_ast			*parse(t_token **token, char *input, char *prompt);
 void			print_ast(t_ast *node);
 void			free_ast(t_ast *node);
+int				error_indicator(int i);
 //EXECUTION
 void			evaluate_ast(t_ast *ast);
 void			command_execute(t_ast *ast);
@@ -36,6 +39,7 @@ void			ft_pwd(void);
 void			ft_echo(char **arguments);
 void			ft_exit(t_ast *ast);
 //UTILITIES
-void			free_ms(t_ast *ast);
+void			free_all(t_ast *ast);
+void			ft_error(t_ast *ast, char *str);
 
 #endif
