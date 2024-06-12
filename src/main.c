@@ -6,7 +6,7 @@
 /*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:54:07 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/11 22:26:25 by tomecker         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:16:46 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	main(void)
 		add_history(input);
 		token = get_token(input, prompt);
 		tmp = token;
-		ast = parse(&token, input, prompt);
 		print_token(tmp); 
+		ast = parse(&token, input, prompt);
 		printf("\n\n");
 		print_ast(ast);
 		evaluate_ast(ast);

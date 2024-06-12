@@ -6,7 +6,7 @@
 /*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:55:24 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/11 22:28:02 by tomecker         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:05:07 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int				ft_isspace(int c);
 t_ast			*parse(t_token **token, char *input, char *prompt);
 void			print_ast(t_ast *node);
 void			free_ast(t_ast *node);
-int				error_indicator(int i);
+int				error_indicator(int i, char *str);
+
 //EXECUTION
 void			evaluate_ast(t_ast *ast);
 void			command_execute(t_ast *ast);

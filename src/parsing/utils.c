@@ -143,9 +143,11 @@ void	free_tokens(t_token *token)
 	}
 }
 
-int error_indicator(int i)
+int error_indicator(int i, char *str)
 {
 	static int b = 0;
+	if (str)
+		ft_printf("%s\n", str);
 	if (i == 1)
 		b++;
 	if (i == 3)

@@ -6,10 +6,10 @@ t_token *ft_new_token(char *value, t_token_type type)
 
     new_token = (t_token *)ft_calloc(1, sizeof(t_token));
     if (!new_token)
-        error_indicator(1);
+        error_indicator(1, "calloc");
     new_token->value = ft_strdup(value);
     if (!new_token->value)
-        error_indicator(1);
+        error_indicator(1, "dupe value to token");
     new_token->type = type;
     return (new_token);
 }
@@ -55,15 +55,12 @@ int add_token(t_token **lst, t_token_type type, char *input, int i)
     }
     value = ft_substr(input, i, count);
     if (!value)
-        error_indicator(1);
-
+        error_indicator(1, "substr");
     new = ft_new_token(value, type);
     ft_token_list_add_back(lst, new);
-
     free(value);
     return (count + j);
 }
-
 
 t_token *get_token(char *input, char *prompt)
 {
@@ -97,7 +94,7 @@ t_token *get_token(char *input, char *prompt)
         else if (input[i])
             i = add_token(&lst, T_IDENTIFIER, input, i);
     }
-    if (error_indicator(0) > 0)
+    if (error_indicator(0, NULL) > 0)
     {
         free(prompt);
         free(input);
