@@ -6,7 +6,7 @@
 /*   By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:09:27 by dolifero          #+#    #+#             */
-/*   Updated: 2024/06/11 23:10:35 by tomecker         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:51:31 by tomecker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void and_or_execution(t_ast *ast)
 	if (pid1 == 0)
 	{
 		evaluate_ast(ast->left);
+		bbbb
 		exit(0);
 	}
 	else

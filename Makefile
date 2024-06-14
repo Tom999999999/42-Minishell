@@ -6,7 +6,7 @@
 #    By: tomecker <tomecker@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/01 17:09:19 by dolifero          #+#    #+#              #
-#    Updated: 2024/06/11 18:12:25 by tomecker         ###   ########.fr        #
+#    Updated: 2024/06/12 12:51:45 by tomecker         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR) $(foreach dir, $(SUBDIRS), $(OBJ_DIR)/$(dir))
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
